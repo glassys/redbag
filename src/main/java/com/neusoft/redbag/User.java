@@ -2,22 +2,25 @@ package com.neusoft.redbag;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
-@NoArgsConstructor
+@Table(name = "tb_user")
 public class User {
 
     @Id
-    @GeneratedValue
+    @GenericGenerator(name = "idGenerator",strategy = "uuid")
+    @GeneratedValue(generator = "idGenerator")
 
     private String id;
+    @Column(name = "username", unique = true, nullable = false,length = 64)
     private String username;
+    @Column(name = "password", nullable = false,length = 64)
     private String password;
+    @Column(name = "email", length = 64)
     private String email;
 
 }
